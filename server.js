@@ -1,18 +1,14 @@
 import express from "express";
+import indexRoute from "./routes/index.route.js";
 
 const app = express();
 
-// get - handle GET requests
-// param1 - the route
-// param2 - the callback to execute when the route is accessed
-// the callback function:
-// param1 - the request object
-// param2 - the response object
-app.get("/", (req, res) => {
-  res.json({
-    message: "Hello World!",
-  });
-});
+// use - middleware
+// express.json() - middleware that parses incoming requests with JSON payloads
+app.use(express.json());
+
+// for every request, use the router
+app.use(indexRoute);
 
 // listen - start the server and listen to requests
 // param1 port - the port number to listen to
