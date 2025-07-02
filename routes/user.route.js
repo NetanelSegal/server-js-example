@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const arr = [];
 
-const router = new Router();
+const router = Router();
 
 router.post("/test", (req, res) => {
   arr.push(req.body);

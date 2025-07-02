@@ -1,7 +1,11 @@
 import express from "express";
+import cors from "cors";
 import indexRoute from "./routes/index.route.js";
 
 const app = express();
+
+// cors
+app.use(cors());
 
 // use - middleware
 // express.json() - middleware that parses incoming requests with JSON payloads

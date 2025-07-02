@@ -1,8 +1,10 @@
 import { Router } from "express";
 import userRoute from "./user.route.js";
 import authRoute from "./auth.route.js";
+import productsRoute from "./products.route.js";
+import categoriesRoute from "./categories.route.js";
 
-const router = new Router();
+const router = Router();
 
 router.get("/health", (req, res) => {
   res.json({
@@ -12,5 +14,7 @@ router.get("/health", (req, res) => {
 
 router.use("/users", userRoute);
 router.use("/auth", authRoute);
+router.use("/products", productsRoute);
+router.use("/categories", categoriesRoute);
 
 export default router;

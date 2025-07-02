@@ -1,0 +1,20 @@
+[
+  { "id": 1, "name": "Kiddush Items" },
+  { "id": 2, "name": "Havdalah" },
+  { "id": 3, "name": "Shabbat Table" },
+  { "id": 4, "name": "Mezuzahs" },
+  { "id": 5, "name": "Hanukkah" },
+  { "id": 6, "name": "Tallit & Bags" },
+  { "id": 7, "name": "Tefillin" },
+  { "id": 8, "name": "Prayer Books" },
+  { "id": 9, "name": "Torah Accessories" },
+  { "id": 10, "name": "Head Coverings" },
+  { "id": 11, "name": "Passover" },
+  { "id": 12, "name": "Challah Accessories" },
+  { "id": 13, "name": "Shofars" },
+  { "id": 14, "name": "Holiday Toys" },
+  { "id": 15, "name": "Holiday Treats" },
+  { "id": 16, "name": "Educational" },
+  { "id": 17, "name": "Jewelry" },
+  { "id": 18, "name": "Home Decor" }
+]
