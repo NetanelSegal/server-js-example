@@ -1,13 +1,15 @@
 import express from "express";
 import cors from "cors";
 import indexRoute from "./routes/index.route.js";
+import "./db/dbConnection.js";
 
 const app = express();
+
+// use - middleware
 
 // cors
 app.use(cors());
 
-// use - middleware
 // express.json() - middleware that parses incoming requests with JSON payloads
 app.use(express.json());
 
