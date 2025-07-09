@@ -1,14 +1,20 @@
 import { Router } from "express";
-
-const arr = [];
+import UserModel from "../models/user.model.js";
+import {
+  validateAdmin,
+  validateToken,
+} from "../middlewares/tokenValidation.js";
 
 const router = Router();
 
-router.post("/test", (req, res) => {
-  arr.push(req.body);
-  res.json({
-    arr,
-  });
+router.get("/", validateToken, validateAdmin, async (req, res) => {
+  const users = await UserModel.find();
+  res.json(users);
+});
+
+router.post("/", validateToken, async (req, res) => {
+  const users = await UserModel.find();
+  res.json(users);
 });
 
 export default router;

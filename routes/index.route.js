@@ -6,6 +6,11 @@ import categoriesRoute from "./categories.route.js";
 
 const router = Router();
 
+router.use("/", (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
 router.get("/health", (req, res) => {
   res.json({
     message: "ok",

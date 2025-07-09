@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { Router } from "express";
 import UserModel from "../models/user.model.js";
 
@@ -21,8 +22,19 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    user.password = "********";
-    res.json(user);
+    const payload = {
+      id: user._id,
+      role: user.role,
+    };
+
+    const token = jwt.sign(payload, "secret", {
+      expiresIn: "24h",
+    });
+
+    res.json({
+      user,
+      token,
+    });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -49,6 +61,31 @@ router.post("/signup", async (req, res) => {
       });
     }
 
+    res.status(400).json(err);
+  }
+});
+
+router.post("/validate", async (req, res) => {
+  try {
+    const { token } = req.body;
+    const decoded = jwt.verify(token, "secret");
+
+    const user = await UserModel.findById(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({
+        message: "User not found",
+      });
+    }
+
+    user.password = "********";
+    res.json(user);
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Token expired",
+      });
+    }
     res.status(400).json(err);
   }
 });
