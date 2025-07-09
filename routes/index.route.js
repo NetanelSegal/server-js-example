@@ -3,11 +3,12 @@ import userRoute from "./user.route.js";
 import authRoute from "./auth.route.js";
 import productsRoute from "./products.route.js";
 import categoriesRoute from "./categories.route.js";
+import Logger from "../utils/Logger.js";
 
 const router = Router();
 
 router.use("/", (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+  Logger.info(`${req.method} ${req.url}`);
   next();
 });
 
