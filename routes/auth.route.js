@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Router } from "express";
 import UserModel from "../models/user.model.js";
+import { validateToken } from "../middlewares/tokenValidation.js";
 
 const router = Router();
 
@@ -65,12 +66,9 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/validate", async (req, res) => {
+router.get("/validate", validateToken, async (req, res) => {
   try {
-    const { token } = req.body;
-    const decoded = jwt.verify(token, "secret");
-
-    const user = await UserModel.findById(decoded.id);
+    const user = await UserModel.findById(req.user.id);
 
     if (!user) {
       return res.status(401).json({
