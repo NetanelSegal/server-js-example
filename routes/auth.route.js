@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(payload, "secret", {
       expiresIn: "24h",
     });
-
+    user.password = "********";
     res.json({
       user,
       token,
