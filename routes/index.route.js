@@ -4,6 +4,7 @@ import authRoute from "./auth.route.js";
 import productsRoute from "./products.route.js";
 import categoriesRoute from "./categories.route.js";
 import Logger from "../utils/Logger.js";
+import { validateToken } from "../middlewares/tokenValidation.js";
 
 const router = Router();
 
@@ -12,7 +13,7 @@ router.use("/", (req, res, next) => {
   next();
 });
 
-router.get("/health", (req, res) => {
+router.get("/health", validateToken, (req, res) => {
   res.json({
     message: "ok",
   });
