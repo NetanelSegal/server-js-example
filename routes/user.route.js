@@ -12,9 +12,4 @@ router.get("/", validateToken, validateAdmin, async (req, res) => {
   res.json(users);
 });
 
-router.post("/", validateToken, async (req, res) => {
-  const users = await UserModel.find();
-  res.json(users);
-});
-
 export default router;
