@@ -1,10 +1,53 @@
 import { Router } from "express";
-import products from "../data/judaica_items.json" with { type:'json' };
+import Product from "../models/product.model.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json(products);
+// GET all products
+router.get("/", async (req, res) => {
+  try {
+    const items = await Product.find();
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST create a new product
+router.post("/", async (req, res) => {
+  try {
+    const { name, image, categoryCode, price, count } = req.body;
+    const item = new Product({ name, image, categoryCode, price, count });
+    await item.save();
+    res.status(201).json(item);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// PUT update a product by id
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+    const item = await Product.findByIdAndUpdate(id, update, { new: true });
+    if (!item) return res.status(404).json({ error: "Product not found" });
+    res.json(item);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// DELETE a product by id
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Product.findByIdAndDelete(id);
+    if (!result) return res.status(404).json({ error: "Product not found" });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 export default router;

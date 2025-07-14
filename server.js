@@ -3,6 +3,7 @@ import cors from "cors";
 import indexRoute from "./routes/index.route.js";
 import "./db/dbConnection.js";
 import Logger from "./utils/Logger.js";
+import { uploadMockData } from "./uploadMockData.js";
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(indexRoute);
 // listen - start the server and listen to requests
 // param1 port - the port number to listen to
 // param2 callback function - what to do when the server starts
-app.listen(3000, () => {
-  Logger.info("Server is running on port http://localhost:3000");
+uploadMockData().then(() => {
+  app.listen(3000, () => {
+    Logger.info("Server is running on port http://localhost:3000");
+  });
 });
