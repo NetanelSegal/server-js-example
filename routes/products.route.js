@@ -6,8 +6,28 @@ const router = Router();
 // GET all products
 router.get("/", async (req, res) => {
   try {
-    const items = await Product.find();
+    const { name = "", category = "", min = 0, max = Infinity } = req.query;
+
+    const items = await Product.find({
+      name: new RegExp(name, "i"),
+      categoryCode: new RegExp(category, "i"),
+      price: { $gte: min, $lte: max },
+    });
     res.json(items);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET all products
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const item = await Product.findById(id);
+    if (!item) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.json(item);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -21,8 +21,6 @@ app.use(indexRoute);
 // listen - start the server and listen to requests
 // param1 port - the port number to listen to
 // param2 callback function - what to do when the server starts
-uploadMockData().then(() => {
-  app.listen(3000, () => {
-    Logger.info("Server is running on port http://localhost:3000");
-  });
+app.listen(3000, () => {
+  Logger.info("Server is running on port http://localhost:3000");
 });
