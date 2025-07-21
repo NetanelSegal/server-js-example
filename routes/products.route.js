@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Product from "../models/product.model.js";
+import { validateToken, validateAdmin } from "../middlewares/tokenValidation.js";
 
 const router = Router();
 
@@ -34,7 +35,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST create a new product
-router.post("/", async (req, res) => {
+router.post("/", validateToken, validateAdmin, async (req, res) => {
   try {
     const { name, image, categoryCode, price, count } = req.body;
     const item = new Product({ name, image, categoryCode, price, count });
@@ -46,7 +47,7 @@ router.post("/", async (req, res) => {
 });
 
 // PUT update a product by id
-router.put("/:id", async (req, res) => {
+router.put("/:id", validateToken, validateAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const update = req.body;
@@ -59,7 +60,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE a product by id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", validateToken, validateAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const result = await Product.findByIdAndDelete(id);

@@ -1,5 +1,9 @@
 import { Router } from "express";
 import Category from "../models/category.model.js";
+import {
+  validateToken,
+  validateAdmin,
+} from "../middlewares/tokenValidation.js";
 
 const router = Router();
 
@@ -14,7 +18,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST create a new category
-router.post("/", async (req, res) => {
+router.post("/", validateToken, validateAdmin, async (req, res) => {
   try {
     const { name, categoryCode } = req.body;
     const category = new Category({ name, categoryCode });
@@ -26,13 +30,18 @@ router.post("/", async (req, res) => {
 });
 
 // PUT update a category by categoryCode
-router.put("/:categoryCode", async (req, res) => {
+router.put("/:categoryCode", validateToken, validateAdmin, async (req, res) => {
   try {
     const { categoryCode } = req.params;
-    const update = req.body;
+    const { name } = req.body;
+    if (!name) {
+      return res
+        .status(400)
+        .json({ error: "Name is required to update category." });
+    }
     const category = await Category.findOneAndUpdate(
       { categoryCode },
-      update,
+      { name },
       { new: true }
     );
     if (!category) return res.status(404).json({ error: "Category not found" });
@@ -43,15 +52,15 @@ router.put("/:categoryCode", async (req, res) => {
 });
 
 // DELETE a category by categoryCode
-router.delete("/:categoryCode", async (req, res) => {
-  try {
-    const { categoryCode } = req.params;
-    const result = await Category.findOneAndDelete({ categoryCode });
-    if (!result) return res.status(404).json({ error: "Category not found" });
-    res.json({ message: "Category deleted" });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+router.delete(
+  "/:categoryCode",
+  validateToken,
+  validateAdmin,
+  async (req, res) => {
+    return res
+      .status(403)
+      .json({ error: "Deleting categories is not allowed." });
   }
-});
+);
 
 export default router;
