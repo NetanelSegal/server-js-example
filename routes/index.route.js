@@ -4,6 +4,7 @@ import authRoute from "./auth.route.js";
 import productsRoute from "./products.route.js";
 import categoriesRoute from "./categories.route.js";
 import Logger from "../utils/Logger.js";
+import stripeRoute from "./stripe.route.js";
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use("/users", userRoute);
 router.use("/auth", authRoute);
 router.use("/products", productsRoute);
 router.use("/categories", categoriesRoute);
+router.use("/", stripeRoute);
 
 export default router;

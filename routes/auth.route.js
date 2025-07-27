@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { Router } from "express";
 import UserModel from "../models/user.model.js";
 import { validateToken } from "../middlewares/tokenValidation.js";
+import { JWT_SECRET } from "../env.config.js";
 
 const router = Router();
 
@@ -28,9 +29,10 @@ router.post("/login", async (req, res) => {
       role: user.role,
     };
 
-    const token = jwt.sign(payload, "secret", {
+    const token = jwt.sign(payload, JWT_SECRET, {
       expiresIn: "24h",
     });
+
     user.password = "********";
     res.json({
       user,

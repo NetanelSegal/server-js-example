@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import { MONGO_URL } from "../env.config.js";
 
 mongoose
-  .connect("mongodb://localhost:27017/judaica-store")
+  .connect(MONGO_URL)
   .then(() => {
     console.log("mongo connected");
   })
