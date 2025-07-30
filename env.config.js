@@ -7,3 +7,4 @@ export const MONGO_URL =
   process.env.MONGO_URL || "mongodb://localhost:27017/judaica-store";
 export const STRIPE_KEY = process.env.STRIPE_KEY || "";
 export const STRIPE_METHOD_CONFIG = process.env.STRIPE_METHOD_CONFIG || "";
+export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";

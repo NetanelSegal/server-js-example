@@ -1,0 +1,160 @@
+[{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc3"
+  },
+  "name": "Kiddush Items 10000",
+  "categoryCode": "kiddush_items",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc4"
+  },
+  "name": "Havdalah",
+  "categoryCode": "havdalah",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc5"
+  },
+  "name": "Shabbat Table",
+  "categoryCode": "shabbat_table",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc6"
+  },
+  "name": "Mezuzahs",
+  "categoryCode": "mezuzah",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc7"
+  },
+  "name": "Hanukkah",
+  "categoryCode": "hanukkah",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc8"
+  },
+  "name": "Tallit & Bags",
+  "categoryCode": "tallit_bags",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fc9"
+  },
+  "name": "Tefillin",
+  "categoryCode": "tefillin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fca"
+  },
+  "name": "Prayer Books",
+  "categoryCode": "prayer_books",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fcb"
+  },
+  "name": "Torah Accessories",
+  "categoryCode": "torah_accessories",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fcc"
+  },
+  "name": "Head Coverings",
+  "categoryCode": "head_coverings",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fcd"
+  },
+  "name": "Passover",
+  "categoryCode": "passover",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fce"
+  },
+  "name": "Challah Accessories",
+  "categoryCode": "challah_accessories",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fcf"
+  },
+  "name": "Shofars",
+  "categoryCode": "shofars",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fd0"
+  },
+  "name": "Holiday Toys",
+  "categoryCode": "holiday_toys",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fd1"
+  },
+  "name": "Holiday Treats",
+  "categoryCode": "holiday_treats",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fd2"
+  },
+  "name": "Educational",
+  "categoryCode": "educational",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fd3"
+  },
+  "name": "Jewelry",
+  "categoryCode": "jewelry",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687c930fad8fb9da454f5fd4"
+  },
+  "name": "Home Decor",
+  "categoryCode": "home_decor",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687e972af2608264bc9c09ee"
+  },
+  "name": "aaasdasd",
+  "categoryCode": "BB",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687f65eaa3e10b72f9e31793"
+  },
+  "name": "asdasd",
+  "categoryCode": "asdasd",
+  "__v": 0
+}]

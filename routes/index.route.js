@@ -23,6 +23,6 @@ router.use("/users", userRoute);
 router.use("/auth", authRoute);
 router.use("/products", productsRoute);
 router.use("/categories", categoriesRoute);
-router.use("/", stripeRoute);
+router.use("/stripe", stripeRoute);
 
 export default router;
