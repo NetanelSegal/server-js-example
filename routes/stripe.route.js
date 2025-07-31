@@ -25,8 +25,8 @@ router.post("/create-checkout-session", async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       line_items,
       mode: "payment",
-      success_url: "http://localhost:5173",
-      cancel_url: "http://localhost:5173/products",
+      success_url: "http://localhost:5173/payment-success",
+      cancel_url: "http://localhost:5173/payment-cancel",
       payment_method_configuration: STRIPE_METHOD_CONFIG,
     });
 
@@ -65,6 +65,7 @@ router.post("/success", async (req, res) => {
     });
 
     await invoice.save();
+    console.log((await invoice.populate("userId")).populate("items.productId"));
 
     res.status(201).json(invoice);
   } catch (err) {
