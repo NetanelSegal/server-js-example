@@ -36,18 +36,18 @@ router.post("/login", async (req, res) => {
 
     user.password = "********";
 
-    const cart = await CartModel.findOne({ userId: user._id });
+    // const cart = await CartModel.findOne({ userId: user._id });
 
-    if (!cart) {
-      return res.status(404).json({
-        message: "Cart not found",
-      });
-    }
+    // if (!cart) {
+    //   return res.status(404).json({
+    //     message: "Cart not found",
+    //   });
+    // }
 
     res.json({
       user,
       token,
-      cart,
+      cart: null,
     });
   } catch (err) {
     console.error(err);
