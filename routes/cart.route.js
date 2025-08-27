@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { validateToken } from "../middlewares/tokenValidation.js";
 import CartModel from "../models/cart.model.js";
+import ProductModel from "../models/product.model.js";
 
 const router = Router();
 
@@ -33,21 +34,37 @@ router.post("/", validateToken, async (req, res) => {
       (item) => item.productId.toString() === productId
     );
 
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    console.log(product);
+
+    if (product.count < quantity) {
+      console.log("Not enough stock");
+      return res.status(400).json({ message: "Not enough stock" });
+    }
+
     if (item) {
-      return res.status(400).json({ message: "Product already in cart" });
+      const updatedData = await CartModel.findOneAndUpdate(
+        { userId: req.user.id, "items.productId": productId },
+        { $inc: { "items.$.quantity": quantity } },
+        { new: true }
+      ).populate("items.productId");
+      return res.status(200).json(updatedData);
     }
 
     cart.items.push({ productId, quantity });
     await cart.save();
 
-    res.json(cart);
+    res.json(await cart.populate("items.productId"));
   } catch (err) {
     console.log(err);
     res.status(500).json({ err });
   }
 });
 
-router.put("/:id", validateToken, async (req, res) => {
+router.put("/item/:id", validateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { quantity } = req.body;
@@ -58,20 +75,35 @@ router.put("/:id", validateToken, async (req, res) => {
       { new: true }
     );
 
-    res.json(updatedData);
+    res.json(await updatedData.populate("items.productId"));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to update cart" });
   }
 });
 
-router.delete("/:id", validateToken, async (req, res) => {
+router.delete("/item/:id", validateToken, async (req, res) => {
   try {
     const { id } = req.params;
 
     const updatedData = await CartModel.findOneAndUpdate(
       { userId: req.user.id, "items.productId": id },
       { $pull: { items: { productId: id } } },
+      { new: true }
+    );
+
+    res.json(await updatedData.populate("items.productId"));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to delete cart" });
+  }
+});
+
+router.put("/clear", validateToken, async (req, res) => {
+  try {
+    const updatedData = await CartModel.findOneAndUpdate(
+      { userId: req.user.id },
+      { $set: { items: [] } },
       { new: true }
     );
 

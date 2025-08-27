@@ -108,7 +108,7 @@ router.get("/validate", validateToken, async (req, res) => {
 
     res.json({
       user,
-      cart,
+      cart: await cart.populate("items.productId"),
     });
   } catch (err) {
     console.error(err);

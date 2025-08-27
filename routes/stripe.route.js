@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { STRIPE_KEY, STRIPE_METHOD_CONFIG } from "../env.config.js";
 import Product from "../models/product.model.js";
 import Invoice from "../models/invoice.model.js";
+import CartModel from "../models/cart.model.js";
 
 const router = Router();
 const stripe = new Stripe(STRIPE_KEY);
@@ -15,8 +16,8 @@ router.post("/create-checkout-session", async (req, res) => {
       return {
         price_data: {
           currency: "ils",
-          product_data: { name: item.name },
-          unit_amount: Math.round(item.price * 100),
+          product_data: { name: item.productId.name },
+          unit_amount: Math.round(item.productId.price * 100),
         },
         quantity: item.quantity,
       };
@@ -38,8 +39,9 @@ router.post("/create-checkout-session", async (req, res) => {
 });
 
 router.post("/success", async (req, res) => {
-  const { userId, items } = req.body;
+  const { userId, cart } = req.body;
   try {
+    const { items, _id: cartId } = cart;
     const updateProductsPromises = items.map(({ productId, quantity }) => {
       return Product.findByIdAndUpdate(
         productId,
@@ -51,7 +53,7 @@ router.post("/success", async (req, res) => {
     await Promise.all(updateProductsPromises);
 
     const total = items.reduce(
-      (sum, { price, quantity }) => sum + price * quantity,
+      (sum, { productId, quantity }) => sum + productId.price * quantity,
       0
     );
 
@@ -65,9 +67,12 @@ router.post("/success", async (req, res) => {
     });
 
     await invoice.save();
-    console.log((await invoice.populate("userId")).populate("items.productId"));
 
-    res.status(201).json(invoice);
+    const updatedCart = await CartModel.findByIdAndUpdate(cartId, {
+      items: [],
+    }).populate("items.productId");
+
+    res.status(201).json({ invoice, cart: updatedCart });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
